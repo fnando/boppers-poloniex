@@ -1,5 +1,7 @@
 # Boppers::Poloniex
 
+A [bopper](https://github.com/fnando/boppers) to get alerts on Poloniex prices.
+
 [![Travis-CI](https://travis-ci.org/fnando/boppers-poloniex.png)](https://travis-ci.org/fnando/boppers-poloniex)
 [![GPA](https://codeclimate.com/github/fnando/boppers-poloniex/badges/gpa.svg)](https://codeclimate.com/github/fnando/boppers-poloniex)
 [![Test Coverage](https://codeclimate.com/github/fnando/boppers-poloniex/badges/coverage.svg)](https://codeclimate.com/github/fnando/boppers-poloniex)

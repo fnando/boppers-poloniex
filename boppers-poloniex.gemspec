@@ -5,10 +5,10 @@ require "./lib/boppers/poloniex/version"
 Gem::Specification.new do |spec|
   spec.name          = "boppers-poloniex"
   spec.version       = Boppers::Poloniex::VERSION
-  spec.authors       = ["Author"]
-  spec.email         = ["author@example.com"]
+  spec.authors       = ["Nando Vieira"]
+  spec.email         = ["fnando.vieira@gmail.com"]
 
-  spec.summary       = "Some description"
+  spec.summary       = "A bopper to get alerts on Poloniex prices. "
   spec.description   = spec.summary
   spec.homepage      = "https://rubygems.org/gems/boppers-poloniex"
   spec.license       = "MIT"
