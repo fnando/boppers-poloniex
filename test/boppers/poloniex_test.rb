@@ -30,7 +30,8 @@ class BoppersPoloniexTest < Minitest::Test
   end
 
   test "sends notification" do
-    title = "Poloniex: STR traded as 0.00000434"
+    call = nil
+    title = "[POLONIEX] STR traded as 0.00000434"
     message = [
       "Volume: 1917.52148220",
       "24h Change: 18.9%",
@@ -42,12 +43,21 @@ class BoppersPoloniexTest < Minitest::Test
 
     Boppers
       .expects(:notify)
-      .with(:poloniex, title: title, message: message)
+      .with do |*args|
+        call = args
+      end
       .once
 
     params = {ticker: "STR", value: "0.00000435", operator: "less_than"}
     bopper = Boppers::Poloniex.new(params)
     bopper.call
+
+    assert_equal :poloniex, call.first
+    assert_equal title, call.last[:title]
+    assert_equal message, call.last[:message]
+    assert_equal "<b>#{title}</b>", call.last.dig(:options, :telegram, :title)
+    assert_equal "HTML", call.last.dig(:options, :telegram, :parse_mode)
+    assert call.last.dig(:options, :telegram, :disable_web_page_preview)
   end
 
   test "notifies only once (less_than operator)" do
@@ -95,8 +105,8 @@ class BoppersPoloniexTest < Minitest::Test
 
     Boppers.expects(:notify).twice.with do |_, kwargs|
       [
-        "Poloniex: STR traded as 0.00000434",
-        "Poloniex: STR traded as 0.00000430"
+        "[POLONIEX] STR traded as 0.00000434",
+        "[POLONIEX] STR traded as 0.00000430"
       ].include?(kwargs[:title])
     end
 
@@ -135,8 +145,8 @@ class BoppersPoloniexTest < Minitest::Test
 
     Boppers.expects(:notify).twice.with do |_, kwargs|
       [
-        "Poloniex: STR traded as 0.00000434",
-        "Poloniex: STR traded as 0.00000437"
+        "[POLONIEX] STR traded as 0.00000434",
+        "[POLONIEX] STR traded as 0.00000437"
       ].include?(kwargs[:title])
     end
 

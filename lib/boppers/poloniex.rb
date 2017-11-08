@@ -45,7 +45,7 @@ module Boppers
       high = ticker_info["high24hr"]
       low = ticker_info["low24hr"]
 
-      title = "Poloniex: #{ticker} traded as #{last}"
+      title = "[POLONIEX] #{ticker} traded as #{last}"
       message = [
         "Volume: #{volume}",
         "24h Change: #{change}%",
@@ -55,7 +55,18 @@ module Boppers
         "https://poloniex.com/exchange#BTC_#{ticker}"
       ].join("\n")
 
-      Boppers.notify(:poloniex, title: title, message: message)
+      options = {
+        telegram: {
+          disable_web_page_preview: true,
+          parse_mode: "HTML",
+          title: "<b>#{title}</b>"
+        }
+      }
+
+      Boppers.notify(:poloniex,
+                     title: title,
+                     message: message,
+                     options: options)
       @already_notified = true
     end
 
